@@ -4,6 +4,19 @@ output:
   html_document:
     code_folding: hide
 ---
+<img src = "Liz Glotzer.jpg", width = 99px>
+<img src = "Robert Evans.jpg", width = 118px>
+<img src = "Kevin De La Noy.jpg", width = 100px>
+<img src = "Francis Ford Coppola.jpg", width = 100px>
+<img src = "Henry Fonda.jpg", width = 100px>
+<img src = "Alberto Grimaldi.jpg", width = 125px>
+<img src = "Lawrence Bender.jpg", width = 100px>
+<img src = "Irving Glovin.png", width = 200px>
+<img src = "Peter Jackson.jpg", width = 100px>
+<img src = "Ross Grayson Bell.jpg", width = 103px>
+
+
+###### Henry Fonda, Ross Grayson Bell
 
 ```{r, message=FALSE, warning=FALSE}
 library(mdsr)
@@ -12,23 +25,228 @@ db <- dbConnect_scidb(dbname = "imdb")
 ```
 
 ```{r, message=FALSE, warning=FALSE}
-"SELECT *
+top_10_Movies <- "
+SELECT t.id, t.title, t.production_year, 
+  mi1.info AS votes, mi2.info AS rating
 FROM title t
 JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
 JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
 JOIN cast_info as cast on cast.movie_id = t.id
 join name as name_cast on name_cast.id = cast.person_id
-WHERE t.kind_id = 1 
+WHERE t.kind_id = 1
   AND mi1.info_type_id = 100
   AND mi2.info_type_id = 101
   AND mi1.info > 100000
   and cast.role_id  in (3, 4, 8)
   group by t.title
 ORDER BY mi2.info desc
-LIMIT 10;"
+LIMIT 10;
+"
+db %>%
+  dbGetQuery(top_10_Movies)
+```
+
+```{r, message=FALSE, warning=FALSE}
+Shawshank_Redemption <- "
+SELECT *
+FROM title t
+JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
+JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
+JOIN cast_info as cast on cast.movie_id = t.id
+join name as name_cast on name_cast.id = cast.person_id
+WHERE t.title = 'The Shawshank Redemption'
+  AND mi1.info_type_id = 100
+  AND mi2.info_type_id = 101
+  AND mi1.info > 100000
+  and cast.role_id  in (3, 4, 8);
+"
+
+Godfather <- "
+SELECT *
+FROM title t
+JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
+JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
+JOIN cast_info as cast on cast.movie_id = t.id
+join name as name_cast on name_cast.id = cast.person_id
+WHERE t.title = 'The Godfather'
+  AND mi1.info_type_id = 100
+  AND mi2.info_type_id = 101
+  AND mi1.info > 100000
+  and cast.role_id  in (3, 4, 8);
+"
+
+Dark_Knight <- "
+SELECT *
+FROM title t
+JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
+JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
+JOIN cast_info as cast on cast.movie_id = t.id
+join name as name_cast on name_cast.id = cast.person_id
+WHERE t.title = 'The Dark Knight'
+  AND mi1.info_type_id = 100
+  AND mi2.info_type_id = 101
+  AND mi1.info > 100000
+  and cast.role_id  in (3, 4, 8);
+"
+
+Godfather_PartII <- "
+SELECT *
+FROM title t
+JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
+JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
+JOIN cast_info as cast on cast.movie_id = t.id
+join name as name_cast on name_cast.id = cast.person_id
+WHERE t.title = 'The Godfather: Part II'
+  AND mi1.info_type_id = 100
+  AND mi2.info_type_id = 101
+  AND mi1.info > 100000
+  and cast.role_id  in (3, 4, 8);
+"
+
+Angry_Men <- "
+SELECT *
+FROM title t
+JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
+JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
+JOIN cast_info as cast on cast.movie_id = t.id
+join name as name_cast on name_cast.id = cast.person_id
+WHERE t.title = '12 Angry Men'
+  AND mi1.info_type_id = 100
+  AND mi2.info_type_id = 101
+  AND mi1.info > 100000
+  and cast.role_id  in (3, 4, 8);
+"
+
+Il_buono <- "
+SELECT *
+FROM title t
+JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
+JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
+JOIN cast_info as cast on cast.movie_id = t.id
+join name as name_cast on name_cast.id = cast.person_id
+WHERE t.title = 'Il buono, il brutto, il cattivo'
+  AND mi1.info_type_id = 100
+  AND mi2.info_type_id = 101
+  AND mi1.info > 100000
+  and cast.role_id  in (3, 4, 8);
+"
+
+Pulp_fiction <- "
+SELECT *
+FROM title t
+JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
+JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
+JOIN cast_info as cast on cast.movie_id = t.id
+join name as name_cast on name_cast.id = cast.person_id
+WHERE t.title = 'Pulp Fiction'
+  AND mi1.info_type_id = 100
+  AND mi2.info_type_id = 101
+  AND mi1.info > 100000
+  and cast.role_id  in (3, 4, 8);
+"
+
+Schindler_list <- "
+SELECT *
+FROM title t
+JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
+JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
+JOIN cast_info as cast on cast.movie_id = t.id
+join name as name_cast on name_cast.id = cast.person_id
+WHERE t.title = 'Schindler's List'
+  AND mi1.info_type_id = 100
+  AND mi2.info_type_id = 101
+  AND mi1.info > 100000
+  and cast.role_id  in (3, 4, 8);
+"
+
+Lord_Rings <- "
+SELECT *
+FROM title t
+JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
+JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
+JOIN cast_info as cast on cast.movie_id = t.id
+join name as name_cast on name_cast.id = cast.person_id
+WHERE t.title = 'The Lord of the Rings: The Return of the King'
+  AND mi1.info_type_id = 100
+  AND mi2.info_type_id = 101
+  AND mi1.info > 100000
+  and cast.role_id  in (3, 4, 8);
+"
+
+fight_club <- 
+"SELECT *
+FROM title t
+JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
+JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
+JOIN cast_info as cast on cast.movie_id = t.id
+join name as name_cast on name_cast.id = cast.person_id
+WHERE t.title = 'Fight Club'
+  AND mi1.info_type_id = 100
+  AND mi2.info_type_id = 101
+  AND mi1.info > 100000
+  and cast.role_id  in (3, 4, 8);"
 ```
 
 ```{r}
+# calling the individual movies
+
+db %>%
+  dbGetQuery(Shawshank_Redemption)
+
+db %>%
+  dbGetQuery(Godfather)
+
+db %>%
+  dbGetQuery(Dark_Knight)
+
+db %>%
+  dbGetQuery(Godfather_PartII)
+
+db %>%
+  dbGetQuery(Angry_Men)
+
+db %>%
+  dbGetQuery(Il_buono)
+
+db %>%
+  dbGetQuery(Pulp_fiction)
+
+db %>%
+  dbGetQuery(Lord_Rings)
+
+db %>%
+  dbGetQuery(fight_club)
+
+db %>%
+  dbGetQuery(Schindler_list)
+```
+
+
+```{r}
+
+# movie <-function(title){
+#   diff_movie <-
+# "
+# SELECT *
+# FROM title t
+# JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
+# JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
+# JOIN cast_info as cast on cast.movie_id = t.id
+# join name as name_cast on name_cast.id = cast.person_id
+# WHERE t.title = 'title'
+#   AND mi1.info_type_id = 100
+#   AND mi2.info_type_id = 101
+#   AND mi1.info > 100000
+#   and cast.role_id  in (3, 4, 8);
+# "
+# }
+# 
+# Shawshank_Redemption <- movie("The Shawshank Redemption")
+# 
+# db %>%
+#   dbGetQuery(Shawshank_Redemption)
+
+
 ```
 
 
