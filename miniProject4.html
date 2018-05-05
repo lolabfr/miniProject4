@@ -186,148 +186,175 @@ db %&gt;%
 ## 8   960594    8.9
 ## 9  1337090    8.9
 ## 10 1498507    8.8</code></pre>
-<pre class="r"><code>Shawshank_Redemption &lt;- &quot;
-SELECT *
-FROM title t
-JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
-JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
-JOIN cast_info as cast on cast.movie_id = t.id
-join name as name_cast on name_cast.id = cast.person_id
-WHERE t.title = 'The Shawshank Redemption'
-  AND mi1.info_type_id = 100
-  AND mi2.info_type_id = 101
-  AND mi1.info &gt; 100000
-  and cast.role_id  in (3, 4, 8);
-&quot;
-
-Godfather &lt;- &quot;
-SELECT *
-FROM title t
-JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
-JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
-JOIN cast_info as cast on cast.movie_id = t.id
-join name as name_cast on name_cast.id = cast.person_id
-WHERE t.title = 'The Godfather'
-  AND mi1.info_type_id = 100
-  AND mi2.info_type_id = 101
-  AND mi1.info &gt; 100000
-  and cast.role_id  in (3, 4, 8);
-&quot;
-
-Dark_Knight &lt;- &quot;
-SELECT *
-FROM title t
-JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
-JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
-JOIN cast_info as cast on cast.movie_id = t.id
-join name as name_cast on name_cast.id = cast.person_id
-WHERE t.title = 'The Dark Knight'
-  AND mi1.info_type_id = 100
-  AND mi2.info_type_id = 101
-  AND mi1.info &gt; 100000
-  and cast.role_id  in (3, 4, 8);
-&quot;
-
-Godfather_PartII &lt;- &quot;
-SELECT *
-FROM title t
-JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
-JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
-JOIN cast_info as cast on cast.movie_id = t.id
-join name as name_cast on name_cast.id = cast.person_id
-WHERE t.title = 'The Godfather: Part II'
-  AND mi1.info_type_id = 100
-  AND mi2.info_type_id = 101
-  AND mi1.info &gt; 100000
-  and cast.role_id  in (3, 4, 8);
-&quot;
-
-Angry_Men &lt;- &quot;
-SELECT *
-FROM title t
-JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
-JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
-JOIN cast_info as cast on cast.movie_id = t.id
-join name as name_cast on name_cast.id = cast.person_id
-WHERE t.title = '12 Angry Men'
-  AND mi1.info_type_id = 100
-  AND mi2.info_type_id = 101
-  AND mi1.info &gt; 100000
-  and cast.role_id  in (3, 4, 8);
-&quot;
-
-Il_buono &lt;- &quot;
-SELECT *
-FROM title t
-JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
-JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
-JOIN cast_info as cast on cast.movie_id = t.id
-join name as name_cast on name_cast.id = cast.person_id
-WHERE t.title = 'Il buono, il brutto, il cattivo'
-  AND mi1.info_type_id = 100
-  AND mi2.info_type_id = 101
-  AND mi1.info &gt; 100000
-  and cast.role_id  in (3, 4, 8);
-&quot;
-
-Pulp_fiction &lt;- &quot;
-SELECT *
-FROM title t
-JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
-JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
-JOIN cast_info as cast on cast.movie_id = t.id
-join name as name_cast on name_cast.id = cast.person_id
-WHERE t.title = 'Pulp Fiction'
-  AND mi1.info_type_id = 100
-  AND mi2.info_type_id = 101
-  AND mi1.info &gt; 100000
-  and cast.role_id  in (3, 4, 8);
-&quot;
-
-Schindler_list &lt;- &quot;
-SELECT *
-FROM title t
-JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
-JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
-JOIN cast_info as cast on cast.movie_id = t.id
-join name as name_cast on name_cast.id = cast.person_id
-WHERE t.title = 'Schindler's List'
-  AND mi1.info_type_id = 100
-  AND mi2.info_type_id = 101
-  AND mi1.info &gt; 100000
-  and cast.role_id  in (3, 4, 8);
-&quot;
-
-Lord_Rings &lt;- &quot;
-SELECT *
-FROM title t
-JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
-JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
-JOIN cast_info as cast on cast.movie_id = t.id
-join name as name_cast on name_cast.id = cast.person_id
-WHERE t.title = 'The Lord of the Rings: The Return of the King'
-  AND mi1.info_type_id = 100
-  AND mi2.info_type_id = 101
-  AND mi1.info &gt; 100000
-  and cast.role_id  in (3, 4, 8);
-&quot;
-
-fight_club &lt;- 
-&quot;SELECT *
-FROM title t
-JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
-JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
-JOIN cast_info as cast on cast.movie_id = t.id
-join name as name_cast on name_cast.id = cast.person_id
-WHERE t.title = 'Fight Club'
-  AND mi1.info_type_id = 100
-  AND mi2.info_type_id = 101
-  AND mi1.info &gt; 100000
-  and cast.role_id  in (3, 4, 8);&quot;</code></pre>
+<pre class="r"><code># Shawshank_Redemption &lt;- &quot;
+# SELECT *
+# FROM title t
+# JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
+# JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
+# JOIN cast_info as cast on cast.movie_id = t.id
+# join name as name_cast on name_cast.id = cast.person_id
+# WHERE t.title = 'The Shawshank Redemption'
+#   AND mi1.info_type_id = 100
+#   AND mi2.info_type_id = 101
+#   AND mi1.info &gt; 100000
+#   and cast.role_id  in (3, 4, 8);
+# &quot;
+# 
+# Godfather &lt;- &quot;
+# SELECT *
+# FROM title t
+# JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
+# JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
+# JOIN cast_info as cast on cast.movie_id = t.id
+# join name as name_cast on name_cast.id = cast.person_id
+# WHERE t.title = 'The Godfather'
+#   AND mi1.info_type_id = 100
+#   AND mi2.info_type_id = 101
+#   AND mi1.info &gt; 100000
+#   and cast.role_id  in (3, 4, 8);
+# &quot;
+# 
+# Dark_Knight &lt;- &quot;
+# SELECT *
+# FROM title t
+# JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
+# JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
+# JOIN cast_info as cast on cast.movie_id = t.id
+# join name as name_cast on name_cast.id = cast.person_id
+# WHERE t.title = 'The Dark Knight'
+#   AND mi1.info_type_id = 100
+#   AND mi2.info_type_id = 101
+#   AND mi1.info &gt; 100000
+#   and cast.role_id  in (3, 4, 8);
+# &quot;
+# 
+# Godfather_PartII &lt;- &quot;
+# SELECT *
+# FROM title t
+# JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
+# JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
+# JOIN cast_info as cast on cast.movie_id = t.id
+# join name as name_cast on name_cast.id = cast.person_id
+# WHERE t.title = 'The Godfather: Part II'
+#   AND mi1.info_type_id = 100
+#   AND mi2.info_type_id = 101
+#   AND mi1.info &gt; 100000
+#   and cast.role_id  in (3, 4, 8);
+# &quot;
+# 
+# Angry_Men &lt;- &quot;
+# SELECT *
+# FROM title t
+# JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
+# JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
+# JOIN cast_info as cast on cast.movie_id = t.id
+# join name as name_cast on name_cast.id = cast.person_id
+# WHERE t.title = '12 Angry Men'
+#   AND mi1.info_type_id = 100
+#   AND mi2.info_type_id = 101
+#   AND mi1.info &gt; 100000
+#   and cast.role_id  in (3, 4, 8);
+# &quot;
+# 
+# Il_buono &lt;- &quot;
+# SELECT *
+# FROM title t
+# JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
+# JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
+# JOIN cast_info as cast on cast.movie_id = t.id
+# join name as name_cast on name_cast.id = cast.person_id
+# WHERE t.title = 'Il buono, il brutto, il cattivo'
+#   AND mi1.info_type_id = 100
+#   AND mi2.info_type_id = 101
+#   AND mi1.info &gt; 100000
+#   and cast.role_id  in (3, 4, 8);
+# &quot;
+# 
+# Pulp_fiction &lt;- &quot;
+# SELECT *
+# FROM title t
+# JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
+# JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
+# JOIN cast_info as cast on cast.movie_id = t.id
+# join name as name_cast on name_cast.id = cast.person_id
+# WHERE t.title = 'Pulp Fiction'
+#   AND mi1.info_type_id = 100
+#   AND mi2.info_type_id = 101
+#   AND mi1.info &gt; 100000
+#   and cast.role_id  in (3, 4, 8);
+# &quot;
+# 
+# Schindler_list &lt;- &quot;
+# SELECT *
+# FROM title t
+# JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
+# JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
+# JOIN cast_info as cast on cast.movie_id = t.id
+# join name as name_cast on name_cast.id = cast.person_id
+# WHERE t.title LIKE '%Schindler%'
+#   AND mi1.info_type_id = 100
+#   AND mi2.info_type_id = 101
+#   AND mi1.info &gt; 100000
+#   and cast.role_id  in (3, 4, 8);
+# &quot;
+# 
+# Lord_Rings &lt;- &quot;
+# SELECT *
+# FROM title t
+# JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
+# JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
+# JOIN cast_info as cast on cast.movie_id = t.id
+# join name as name_cast on name_cast.id = cast.person_id
+# WHERE t.title = 'The Lord of the Rings: The Return of the King'
+#   AND mi1.info_type_id = 100
+#   AND mi2.info_type_id = 101
+#   AND mi1.info &gt; 100000
+#   and cast.role_id  in (3, 4, 8);
+# &quot;
+# 
+# fight_club &lt;- 
+# &quot;SELECT *
+# FROM title t
+# JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
+# JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
+# JOIN cast_info as cast on cast.movie_id = t.id
+# join name as name_cast on name_cast.id = cast.person_id
+# WHERE t.title = 'Fight Club'
+#   AND mi1.info_type_id = 100
+#   AND mi2.info_type_id = 101
+#   AND mi1.info &gt; 100000
+#   and cast.role_id  in (3, 4, 8);&quot;</code></pre>
 <pre class="r"><code># calling the individual movies
-
-db %&gt;%
-  dbGetQuery(Shawshank_Redemption)</code></pre>
+# 
+# db %&gt;%
+#   dbGetQuery(Shawshank_Redemption)
+# 
+# db %&gt;%
+#   dbGetQuery(Godfather)
+# 
+# db %&gt;%
+#   dbGetQuery(Dark_Knight)
+# 
+# db %&gt;%
+#   dbGetQuery(Godfather_PartII)
+# 
+# db %&gt;%
+#   dbGetQuery(Angry_Men)
+# 
+# db %&gt;%
+#   dbGetQuery(Il_buono)
+# 
+# db %&gt;%
+#   dbGetQuery(Pulp_fiction)
+# 
+# db %&gt;%
+#   dbGetQuery(Lord_Rings)
+# 
+# db %&gt;%
+#   dbGetQuery(fight_club)
+# 
+# db %&gt;%
+#   dbGetQuery(Schindler_list)</code></pre>
 <pre><code>##        id                    title imdb_index kind_id production_year
 ## 1 4421607 The Shawshank Redemption       &lt;NA&gt;       1            1994
 ## 2 4421607 The Shawshank Redemption       &lt;NA&gt;       1            1994
@@ -384,8 +411,6 @@ db %&gt;%
 ## 4 78cb1e8515f0c0a9b1d20e5dd8bddb4a
 ## 5 007c80b2a72f9a4d921fe980fe9fe655
 ## 6 78cb1e8515f0c0a9b1d20e5dd8bddb4a</code></pre>
-<pre class="r"><code>db %&gt;%
-  dbGetQuery(Godfather)</code></pre>
 <pre><code>##        id         title imdb_index kind_id production_year imdb_id
 ## 1 4359478 The Godfather       &lt;NA&gt;       1            1972      NA
 ## 2 4359478 The Godfather       &lt;NA&gt;       1            1972      NA
@@ -442,8 +467,6 @@ db %&gt;%
 ## 5          M612            P2 9ef8c58bde4728ce9e8556b0a8d682cb
 ## 6          M612            P2 9ef8c58bde4728ce9e8556b0a8d682cb
 ## 7         F6521           C14 91933b36f8ffdfba19b31a80498b9379</code></pre>
-<pre class="r"><code>db %&gt;%
-  dbGetQuery(Dark_Knight)</code></pre>
 <pre><code>##         id           title imdb_index kind_id production_year imdb_id
 ## 1  4339102 The Dark Knight       &lt;NA&gt;       1            2008      NA
 ## 2  4339102 The Dark Knight       &lt;NA&gt;       1            2008      NA
@@ -563,8 +586,6 @@ db %&gt;%
 ## 14         C6231           N45 c102b41363f1cab4efceabdb62cba4ba
 ## 15         J5354           N45 c09092a8554f37e68099475ab58cfaee
 ## 16         C6231           N45 c102b41363f1cab4efceabdb62cba4ba</code></pre>
-<pre class="r"><code>db %&gt;%
-  dbGetQuery(Godfather_PartII)</code></pre>
 <pre><code>##        id                  title imdb_index kind_id production_year
 ## 1 4359511 The Godfather: Part II       &lt;NA&gt;       1            1974
 ## 2 4359511 The Godfather: Part II       &lt;NA&gt;       1            1974
@@ -635,8 +656,6 @@ db %&gt;%
 ## 7          M612            P2 9ef8c58bde4728ce9e8556b0a8d682cb
 ## 8          M612            P2 9ef8c58bde4728ce9e8556b0a8d682cb
 ## 9         F6521           C14 91933b36f8ffdfba19b31a80498b9379</code></pre>
-<pre class="r"><code>db %&gt;%
-  dbGetQuery(Angry_Men)</code></pre>
 <pre><code>##        id        title imdb_index kind_id production_year imdb_id
 ## 1 3204998 12 Angry Men       &lt;NA&gt;       1            1957      NA
 ## 2 3204998 12 Angry Men       &lt;NA&gt;       1            1957      NA
@@ -686,8 +705,6 @@ db %&gt;%
 ## 4            R2 73d4c5c847777149dd7f59f04519a21a
 ## 5            R2 73d4c5c847777149dd7f59f04519a21a
 ## 6           L53 6415b24bab38352d812debd30b60763e</code></pre>
-<pre class="r"><code>db %&gt;%
-  dbGetQuery(Il_buono)</code></pre>
 <pre><code>##        id                           title imdb_index kind_id
 ## 1 3735016 Il buono, il brutto, il cattivo       &lt;NA&gt;       1
 ## 2 3735016 Il buono, il brutto, il cattivo       &lt;NA&gt;       1
@@ -768,8 +785,6 @@ db %&gt;%
 ## 7 633974db36b16990f8695a73a889dcd4
 ## 8 633974db36b16990f8695a73a889dcd4
 ## 9 02709c6a3141583aa494935444fafa82</code></pre>
-<pre class="r"><code>db %&gt;%
-  dbGetQuery(Pulp_fiction)</code></pre>
 <pre><code>##         id        title imdb_index kind_id production_year imdb_id
 ## 1  4119895 Pulp Fiction       &lt;NA&gt;       1            1994      NA
 ## 2  4119895 Pulp Fiction       &lt;NA&gt;       1            1994      NA
@@ -854,8 +869,83 @@ db %&gt;%
 ## 9          Q5353          &lt;NA&gt; b2d3f2ac8b10cad671eca8983a4763da
 ## 10         Q5353          &lt;NA&gt; b2d3f2ac8b10cad671eca8983a4763da
 ## 11         Q5353          &lt;NA&gt; b2d3f2ac8b10cad671eca8983a4763da</code></pre>
-<pre class="r"><code>db %&gt;%
-  dbGetQuery(Lord_Rings)</code></pre>
+<pre><code>##         id            title imdb_index kind_id production_year imdb_id
+## 1  4189439 Schindler's List       &lt;NA&gt;       1            1993      NA
+## 2  4189439 Schindler's List       &lt;NA&gt;       1            1993      NA
+## 3  4189439 Schindler's List       &lt;NA&gt;       1            1993      NA
+## 4  4189439 Schindler's List       &lt;NA&gt;       1            1993      NA
+## 5  4189439 Schindler's List       &lt;NA&gt;       1            1993      NA
+## 6  4189439 Schindler's List       &lt;NA&gt;       1            1993      NA
+## 7  4189439 Schindler's List       &lt;NA&gt;       1            1993      NA
+## 8  4189439 Schindler's List       &lt;NA&gt;       1            1993      NA
+## 9  4189439 Schindler's List       &lt;NA&gt;       1            1993      NA
+## 10 4189439 Schindler's List       &lt;NA&gt;       1            1993      NA
+##    phonetic_code episode_of_id season_nr episode_nr series_years
+## 1          S2534            NA        NA         NA         &lt;NA&gt;
+## 2          S2534            NA        NA         NA         &lt;NA&gt;
+## 3          S2534            NA        NA         NA         &lt;NA&gt;
+## 4          S2534            NA        NA         NA         &lt;NA&gt;
+## 5          S2534            NA        NA         NA         &lt;NA&gt;
+## 6          S2534            NA        NA         NA         &lt;NA&gt;
+## 7          S2534            NA        NA         NA         &lt;NA&gt;
+## 8          S2534            NA        NA         NA         &lt;NA&gt;
+## 9          S2534            NA        NA         NA         &lt;NA&gt;
+## 10         S2534            NA        NA         NA         &lt;NA&gt;
+##                              md5sum      id movie_id info_type_id   info
+## 1  885123586c805d5c92704e4dc13cbcae 1975054  4189439          100 960594
+## 2  885123586c805d5c92704e4dc13cbcae 1975054  4189439          100 960594
+## 3  885123586c805d5c92704e4dc13cbcae 1975054  4189439          100 960594
+## 4  885123586c805d5c92704e4dc13cbcae 1975054  4189439          100 960594
+## 5  885123586c805d5c92704e4dc13cbcae 1975054  4189439          100 960594
+## 6  885123586c805d5c92704e4dc13cbcae 1975054  4189439          100 960594
+## 7  885123586c805d5c92704e4dc13cbcae 1975054  4189439          100 960594
+## 8  885123586c805d5c92704e4dc13cbcae 1975054  4189439          100 960594
+## 9  885123586c805d5c92704e4dc13cbcae 1975054  4189439          100 960594
+## 10 885123586c805d5c92704e4dc13cbcae 1975054  4189439          100 960594
+##    note      id movie_id info_type_id info note       id person_id
+## 1  &lt;NA&gt; 1975055  4189439          101  8.9 &lt;NA&gt; 35649437   4342563
+## 2  &lt;NA&gt; 1975055  4189439          101  8.9 &lt;NA&gt; 36728997   3347217
+## 3  &lt;NA&gt; 1975055  4189439          101  8.9 &lt;NA&gt; 37371033   1441778
+## 4  &lt;NA&gt; 1975055  4189439          101  8.9 &lt;NA&gt; 37908321   1633513
+## 5  &lt;NA&gt; 1975055  4189439          101  8.9 &lt;NA&gt; 38820457   4588105
+## 6  &lt;NA&gt; 1975055  4189439          101  8.9 &lt;NA&gt; 39149012   2080170
+## 7  &lt;NA&gt; 1975055  4189439          101  8.9 &lt;NA&gt; 39717911   2268443
+## 8  &lt;NA&gt; 1975055  4189439          101  8.9 &lt;NA&gt; 43185711   1227087
+## 9  &lt;NA&gt; 1975055  4189439          101  8.9 &lt;NA&gt; 45871708   2647418
+## 10 &lt;NA&gt; 1975055  4189439          101  8.9 &lt;NA&gt; 51930596   2268443
+##    movie_id person_role_id                 note nr_order role_id      id
+## 1   4189439             NA (associate producer)       NA       3 4342563
+## 2   4189439             NA (executive producer)       NA       3 3347217
+## 3   4189439             NA           (producer)       NA       3 1441778
+## 4   4189439             NA           (producer)       NA       3 1633513
+## 5   4189439             NA (associate producer)       NA       3 4588105
+## 6   4189439             NA        (co-producer)       NA       3 2080170
+## 7   4189439             NA           (producer)       NA       3 2268443
+## 8   4189439             NA               (book)        0       4 1227087
+## 9   4189439             NA         (screenplay)        1       4 2647418
+## 10  4189439             NA                 &lt;NA&gt;       NA       8 2268443
+##                 name imdb_index imdb_id gender name_pcode_cf name_pcode_nf
+## 1     Glovin, Irving       &lt;NA&gt;      NA   &lt;NA&gt;         G4156         I6152
+## 2  Kennedy, Kathleen          I      NA      f         K5323         K3452
+## 3     Lustig, Branko       &lt;NA&gt;      NA      m         L2321         B6524
+## 4   Molen, Gerald R.       &lt;NA&gt;      NA      m         M4526         G6436
+## 5    Raymond, Robert          I      NA   &lt;NA&gt;         R5361         R1636
+## 6         Rywin, Lew       &lt;NA&gt;      NA      m           R54           L65
+## 7  Spielberg, Steven       &lt;NA&gt;      NA      m         S1416         S3152
+## 8   Keneally, Thomas       &lt;NA&gt;      NA      m         K5435         T5254
+## 9   Zaillian, Steven       &lt;NA&gt;      NA      m         Z4523         S3152
+## 10 Spielberg, Steven       &lt;NA&gt;      NA      m         S1416         S3152
+##    surname_pcode                           md5sum
+## 1           G415 2b7431aa24749cbf627faecf4ed24626
+## 2            K53 8d299678eb0393931737ade716120521
+## 3           L232 00dd37de8f7bd8896c2422bfce1eaebf
+## 4            M45 5b937299030785b1d0614d2b60fb4601
+## 5            R53 3d53fc3a4d88301fc32bf634ebcb928a
+## 6             R5 545d140a000ac37f88ebae33ad93d166
+## 7           &lt;NA&gt; e32207da237c44c0f25a913738bbad91
+## 8            K54 ee69b7512902bde70e137d87422f0e15
+## 9            Z45 eaafba2861c29681d94f446677ef8d03
+## 10          &lt;NA&gt; e32207da237c44c0f25a913738bbad91</code></pre>
 <pre><code>##         id                                         title imdb_index
 ## 1  4383711 The Lord of the Rings: The Return of the King       &lt;NA&gt;
 ## 2  4383711 The Lord of the Rings: The Return of the King       &lt;NA&gt;
@@ -984,8 +1074,6 @@ db %&gt;%
 ## 13         J6342          T425 5506e48b6874a48e86a7dc2921b52e38
 ## 14         F6542           W42 27214ab94c4e41d7944c49d989e7a8c5
 ## 15         P3625           J25 fb7a5b1f43588e80f79455593ee17a8f</code></pre>
-<pre class="r"><code>db %&gt;%
-  dbGetQuery(fight_club)</code></pre>
 <pre><code>##        id      title imdb_index kind_id production_year imdb_id
 ## 1 3600261 Fight Club       &lt;NA&gt;       1            1999      NA
 ## 2 3600261 Fight Club       &lt;NA&gt;       1            1999      NA
@@ -1049,29 +1137,6 @@ db %&gt;%
 ## 6          &lt;NA&gt; d3e00df7772ae80a48faac5d6785a035
 ## 7           U42 817f46ffda4d364c4b687c9fe97ae29e
 ## 8          F526 139664a047b1ed52e8fae392d51fe1c6</code></pre>
-<pre class="r"><code># db %&gt;%
-#   dbGetQuery(Schindler_list)</code></pre>
-<pre class="r"><code># movie &lt;-function(title){
-#   diff_movie &lt;-
-# &quot;
-# SELECT *
-# FROM title t
-# JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
-# JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
-# JOIN cast_info as cast on cast.movie_id = t.id
-# join name as name_cast on name_cast.id = cast.person_id
-# WHERE t.title = 'title'
-#   AND mi1.info_type_id = 100
-#   AND mi2.info_type_id = 101
-#   AND mi1.info &gt; 100000
-#   and cast.role_id  in (3, 4, 8);
-# &quot;
-# }
-# 
-# Shawshank_Redemption &lt;- movie(&quot;The Shawshank Redemption&quot;)
-# 
-# db %&gt;%
-#   dbGetQuery(Shawshank_Redemption)</code></pre>
 </div>
 
 
