@@ -22,6 +22,8 @@ output:
 library(mdsr)
 library(RMySQL)
 db <- dbConnect_scidb(dbname = "imdb")
+
+library(tidyverse)
 ```
 
 ```{r, message=FALSE, warning=FALSE}
@@ -66,183 +68,6 @@ LIMIT 10;
 db %>%
   dbGetQuery(bottom_10_Movies)
 ```
-
-
-```{r, message=FALSE, warning=FALSE}
-# Shawshank_Redemption <- "
-# SELECT *
-# FROM title t
-# JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
-# JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
-# JOIN cast_info as cast on cast.movie_id = t.id
-# join name as name_cast on name_cast.id = cast.person_id
-# WHERE t.title = 'The Shawshank Redemption'
-#   AND mi1.info_type_id = 100
-#   AND mi2.info_type_id = 101
-#   AND mi1.info > 100000
-#   and cast.role_id  in (3, 4, 8);
-# "
-# 
-# Godfather <- "
-# SELECT *
-# FROM title t
-# JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
-# JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
-# JOIN cast_info as cast on cast.movie_id = t.id
-# join name as name_cast on name_cast.id = cast.person_id
-# WHERE t.title = 'The Godfather'
-#   AND mi1.info_type_id = 100
-#   AND mi2.info_type_id = 101
-#   AND mi1.info > 100000
-#   and cast.role_id  in (3, 4, 8);
-# "
-# 
-# Dark_Knight <- "
-# SELECT *
-# FROM title t
-# JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
-# JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
-# JOIN cast_info as cast on cast.movie_id = t.id
-# join name as name_cast on name_cast.id = cast.person_id
-# WHERE t.title = 'The Dark Knight'
-#   AND mi1.info_type_id = 100
-#   AND mi2.info_type_id = 101
-#   AND mi1.info > 100000
-#   and cast.role_id  in (3, 4, 8);
-# "
-# 
-# Godfather_PartII <- "
-# SELECT *
-# FROM title t
-# JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
-# JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
-# JOIN cast_info as cast on cast.movie_id = t.id
-# join name as name_cast on name_cast.id = cast.person_id
-# WHERE t.title = 'The Godfather: Part II'
-#   AND mi1.info_type_id = 100
-#   AND mi2.info_type_id = 101
-#   AND mi1.info > 100000
-#   and cast.role_id  in (3, 4, 8);
-# "
-# 
-# Angry_Men <- "
-# SELECT *
-# FROM title t
-# JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
-# JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
-# JOIN cast_info as cast on cast.movie_id = t.id
-# join name as name_cast on name_cast.id = cast.person_id
-# WHERE t.title = '12 Angry Men'
-#   AND mi1.info_type_id = 100
-#   AND mi2.info_type_id = 101
-#   AND mi1.info > 100000
-#   and cast.role_id  in (3, 4, 8);
-# "
-# 
-# Il_buono <- "
-# SELECT *
-# FROM title t
-# JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
-# JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
-# JOIN cast_info as cast on cast.movie_id = t.id
-# join name as name_cast on name_cast.id = cast.person_id
-# WHERE t.title = 'Il buono, il brutto, il cattivo'
-#   AND mi1.info_type_id = 100
-#   AND mi2.info_type_id = 101
-#   AND mi1.info > 100000
-#   and cast.role_id  in (3, 4, 8);
-# "
-# 
-# Pulp_fiction <- "
-# SELECT *
-# FROM title t
-# JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
-# JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
-# JOIN cast_info as cast on cast.movie_id = t.id
-# join name as name_cast on name_cast.id = cast.person_id
-# WHERE t.title = 'Pulp Fiction'
-#   AND mi1.info_type_id = 100
-#   AND mi2.info_type_id = 101
-#   AND mi1.info > 100000
-#   and cast.role_id  in (3, 4, 8);
-# "
-# 
-# Schindler_list <- "
-# SELECT *
-# FROM title t
-# JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
-# JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
-# JOIN cast_info as cast on cast.movie_id = t.id
-# join name as name_cast on name_cast.id = cast.person_id
-# WHERE t.title LIKE '%Schindler%'
-#   AND mi1.info_type_id = 100
-#   AND mi2.info_type_id = 101
-#   AND mi1.info > 100000
-#   and cast.role_id  in (3, 4, 8);
-# "
-# 
-# Lord_Rings <- "
-# SELECT *
-# FROM title t
-# JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
-# JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
-# JOIN cast_info as cast on cast.movie_id = t.id
-# join name as name_cast on name_cast.id = cast.person_id
-# WHERE t.title = 'The Lord of the Rings: The Return of the King'
-#   AND mi1.info_type_id = 100
-#   AND mi2.info_type_id = 101
-#   AND mi1.info > 100000
-#   and cast.role_id  in (3, 4, 8);
-# "
-# 
-# fight_club <- 
-# "SELECT *
-# FROM title t
-# JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
-# JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
-# JOIN cast_info as cast on cast.movie_id = t.id
-# join name as name_cast on name_cast.id = cast.person_id
-# WHERE t.title = 'Fight Club'
-#   AND mi1.info_type_id = 100
-#   AND mi2.info_type_id = 101
-#   AND mi1.info > 100000
-#   and cast.role_id  in (3, 4, 8);"
-```
-
-```{r}
-# calling the individual movies
-# 
-# db %>%
-#   dbGetQuery(Shawshank_Redemption)
-# 
-# db %>%
-#   dbGetQuery(Godfather)
-# 
-# db %>%
-#   dbGetQuery(Dark_Knight)
-# 
-# db %>%
-#   dbGetQuery(Godfather_PartII)
-# 
-# db %>%
-#   dbGetQuery(Angry_Men)
-# 
-# db %>%
-#   dbGetQuery(Il_buono)
-# 
-# db %>%
-#   dbGetQuery(Pulp_fiction)
-# 
-# db %>%
-#   dbGetQuery(Lord_Rings)
-# 
-# db %>%
-#   dbGetQuery(fight_club)
-# 
-# db %>%
-#   dbGetQuery(Schindler_list)
-```
-
 
 ```{r, message=FALSE, warning=FALSE, echo=FALSE}
 movie <-function(title){
@@ -326,5 +151,206 @@ db %>%
   dbGetQuery(Fight_club)
 
 ```
+```{r}
+# creating a data frame about top 10 movies
+
+producer = c("Liz Glotzer", "Robert Evans", "Kevin De La Noy", "Francis Ford Coppola", "Henry Fonda", "Alberto Grimaldi", "Lawrence Bender", "Irving Glovin", "Peter Jackson", "Ross Grayson Bell")
+
+sex_production = c("female", "male", "male", "male", "male", "male", "male", "male", "male", "male")
+
+race = c("white", "white", "white", "white", "white", "white", "white", "white", "white", "white")
+
+
+# creating a data frame for The Shawshank Redemption
+
+shaw_role = c("executive producer", "executive producer", "producer", "screenplay","story by", "director")
+
+shaw_people = c("Liz Glotzer", "David Lester", "Niki Marvin", "Frank Darbont", "Stephen King", "Frank Darabont")
+
+shaw_race = c("white", "white", "white", "white", "white", "white")
+
+shaw_gender = c("female", "male", "female", "male", "male", "male")
+
+
+# creating a data frame for The Godfather
+
+godFather_role = c("executive producer", "associate producer", "producer", "screenplay", "story by", "screenplay", "director")
+
+godFather_people = c("Robert Evans", "Gray Frederickson", "Albert Ruddy", "Francis Ford Coppola", "Mario Puzo", "Mario Puzo", "Francis Ford Coppola")
+
+godFather_race = c("white", "white", "white", "white", "white", "white", "white" )
+
+godFather_gender = c("male", "male", "male", "male", "male", "male", "male" )
+
+
+# creating a data frame for The Dark Knight
+Dark_Knight_role = c("executive producer", "associate producer", "line producer: Hong Kong", "executive producer", "producer", "producer IMAX version", "producer", "producer", "executive producer", "executive producer", "story", "characters", "screenplay", "story", "screenplay", "director")
+
+Dark_Knight_people = c("Kevin De La Noy", "Jordan Goldberg", "Philip Lee", "Benjamin Melniker", "Christopher Nolan", "Lorne Orleans", "Charles Roven", "Emma Thomas", "Thomas Tull", "Michael Uslan", "David Goyer", "Bob Kane", "Christopher Nolan", "Christopher Nolan", "Jonathan Nolan", "Christopher Nolan")
+
+Dark_Knight_race = c("white", "white", "asian", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white")
+
+Dark_Knight_gender = c("male", "male", "male", "male", "male", "male", "male", "female", "male", "male", "male", "male", "male", "male", "male", "male" )
+
+# creating a data frame for The Godfather: Part II
+
+god2_role = c("producer", "executive producer", "co-producer", "co-producer", "associate producer", "screenplay", "story by", "screenplay", "director")
+
+god2_people = c("Francis Ford Coppola", "Robert Evans", "Gray Frederickson", "Fred Roos", "Mona Skager", "Francis Ford Coppola", "Mario Puzo", "Mario Puzo", "Francis Ford Coppola")
+
+god2_race = c("white", "white", "white", "white", "white", "white", "white", "white","white")
+
+god2_gender = c("male", "male", "male", "male", "female", "male", "male", "male", "male")
+
+
+# creating a data frame for the 12 Angry Men
+
+Angry_role = c("producer", "associate producer", "producer", "screenplay", "story", "director")
+
+Angry_people = c("Henry Fonda", "George Justin", "Reginald Rose", "Reginald Rose", "Reginald Rose", "Sidney Lumen")
+
+Angry_race = c("white", "white", "white", "white", "white", "white")
+
+Angry_gender = c("male", "male", "male", "male", "male", "male")
+
+
+# creating a data frame for Il buono, il brutto, il cattivo
+
+il_role = c("producer", "screenplay as Age", "English version", "screensplay", "story", "screenplay as Scarpelli", "screenplay", "story", "director")
+
+il_people = c("Alberto Grimaldi", "Agenore Incrocci", "Mickey Knox", "Sergio Leone", "Sergio Leone", "Furio Scarpelli", "Luciano Vincenzoni", "Luciano Vincenzoni", "Sergio Leone")
+
+il_race = c("white", "white", "white", "white", "white", "white", "white", "white", "white")
+
+il_gender = c("male", "male", "male", "male", "male", "male", "male", "male", "male")
+
+
+#creating a data frame for Pulp Fiction
+
+pulp_role = c("producer", "executive producer", "co-executive producer", "executive producer", "executive producer", "co-executive producer", "co-executive producer", "story by", "story by", "written by", "director")
+
+pulp_people = c("Lawrence Bender", "Danny DeVito", "Richard Gladstein", "Michael Shamberg", "Stacey Sher", "Bob Weinstein", "Harvey Weinstein", "Roger Avary", "Quentin Tarantino", "Quentin Tarantino", "Quentin Tarantino")
+
+pulp_race = c("white", "white", "white", "white", "white", "white", "white", "white","white", "white", "white")
+
+pulp_gender = c("male", "male", "male", "male", "female", "male", "male", "male", "male", "male", "male")
+
+
+# creating a data frame for Schindler's List
+
+schindler_role = c("associate producer", "executive producer", "producer", "producer", "associate producer", "co-producer", "producer", "book", "screenplay", "director")
+
+schindler_people = c("Irving Glovin", "Kathleen Kennedy", "Branko Lustig", "Gerald Molen", "Robert Raymond", "Lew Rywin", "Steven Spielberg", "Thomas Keneally", "Steven Zaillian", "Steven Spielberg")
+
+schindler_race = c("white", "white", "white", "white", "white", "white", "white", "white", "white", "white")
+
+schindler_gender = c("male", "female", "male", "male", "male", "male", "male", "male", "male", "male")
+
+
+# creating a data frame for The Lord of the Rings: The Return of the King
+
+lord_role = c("producer", "executive producer", "executive producer", "producer", "co-producer", "co_producer", "executive producer", "producer", "executive producer", "executive producer", "screenplay", "screenplay", "story by", "screenplay", "director")
+
+lord_people = c("Peter Jackson", "Michael Lynne", "Mark Ordesky", "Barrie Osborne", "Rick Porras", "Jamie Selkirk", "Robert Shaye", "Fran Walsh", "Bob Weinstein", "Harvey Weinstein", "Philippa Boyens", "Peter Jackson", "J.R.R. Tolkien", "Fran Walsh", "Peter Jackson")
+
+lord_race = c("white", "white", "white", "white", "latino", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white")
+
+lord_gender = c("male", "male", "male", "male", "male", "male", "male", "female", "male", "male", "female", "male", "male", "female", "male")
+
+
+# creating a data frame for Fight Club
+
+fight_role = c("producer", "producer", "associate prodcuer", "producer", "executive producer", "story by", "screenplay", "director")
+
+fight_people = c("Ross Grayson Bell", "Cean Chaffin", "John Dorsey", "Art Linson", "Arnon Milchan", "Chuck Palahniuk", "Jim Uhls", "David Fincher")
+
+fight_race = c("white", "white", "white", "white", "white", "white", "white", "white")
+
+fight_gender = c("male", "female", "male", "male", "male", "male", "male", "male")
+```
+
+```{r}
+# all of the data frames that was created from the top 10 highest rated movies
+top_10_Movie_DataFrame = data_frame(producer, sex_production, race)
+
+Shawshank_Redemption_Cast = data_frame(shaw_role, shaw_people, shaw_race, shaw_gender)
+
+godFather_Cast = data_frame(godFather_role, godFather_people, godFather_race, godFather_gender)
+
+Dark_Knight_Cast = data_frame(Dark_Knight_role, Dark_Knight_people, Dark_Knight_race, Dark_Knight_gender)
+
+Godfather_PartII_Cast = data_frame(god2_role, god2_people, god2_race, god2_gender)
+
+Angry_Men_Cast = data_frame(Angry_role, Angry_people, Angry_race, Angry_gender)
+
+Il_buono_Cast = data_frame(il_role, il_people, il_race, il_gender)
+
+Pulp_fiction_Cast = data_frame(pulp_role, pulp_people, pulp_race, pulp_gender)
+
+Schindler_list_Cast = data_frame(schindler_role, schindler_people, schindler_race, schindler_gender)
+
+Lord_of_the_Rings_Cast = data_frame(lord_role, lord_people, lord_race, lord_gender)
+
+Fight_club_Cast = data_frame(fight_role, fight_people, fight_race, fight_gender)
+
+```
+
+
+```{r}
+# making the graphs
+
+production_graph <- function(data, xelement, yelement, filling) {
+  ggplot(data, aes(x = xelement, y = yelement, fill = filling)) + 
+    geom_bin2d()
+}
+
+# gender <- production_graph(top_10_Movie_DataFrame, sex_production, producer, sex_production)
+# 
+# gender
+
+producers <- production_graph(top_10_Movie_DataFrame, sex_production, producer, fill = race)
+producers 
+
+graph_Shawshank_Redemption_Cast <- production_graph(Shawshank_Redemption_Cast, shaw_gender, shaw_role, shaw_race)
+
+graph_Shawshank_Redemption_Cast
+
+graph_godFather_Cast <- production_graph(godFather_Cast, godFather_gender, godFather_role, godFather_race)
+
+graph_godFather_Cast
+
+graph_Dark_Knight_Cast <- production_graph(Dark_Knight_Cast, Dark_Knight_gender, Dark_Knight_role, Dark_Knight_race)
+
+graph_Dark_Knight_Cast
+
+graph_Godfather_PartII_Cast <- production_graph(Godfather_PartII_Cast, god2_gender, god2_role, god2_race)
+
+graph_Godfather_PartII_Cast
+
+graph_Angry_Men_Cast <- production_graph(Angry_Men_Cast, Angry_gender, Angry_role, Angry_race)
+
+graph_Angry_Men_Cast
+
+graph_Il_buono_Cast <- production_graph(Il_buono_Cast, il_gender, il_role, il_race)
+
+graph_Il_buono_Cast
+
+graph_Pulp_fiction_Cast <- production_graph(Pulp_fiction_Cast, pulp_gender, pulp_role, pulp_race)
+
+graph_Pulp_fiction_Cast
+
+graph_Schindler_list_Cast <- production_graph(Schindler_list_Cast, schindler_gender, schindler_role, schindler_race)
+
+graph_Schindler_list_Cast
+
+graph_Lord_of_the_Rings_Cast <- production_graph(Lord_of_the_Rings_Cast, lord_gender, lord_role, lord_race)
+
+graph_Lord_of_the_Rings_Cast
+
+grpah_Fight_club_Cast <- production_graph(Fight_club_Cast, fight_gender, fight_role, fight_race)
+
+
+```
+
 
 
