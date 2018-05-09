@@ -12,12 +12,9 @@ output:
 <img src = "Henry Fonda.jpg", width = 100px>
 <img src = "Alberto Grimaldi.jpg", width = 125px>
 <img src = "Lawrence Bender.jpg", width = 100px>
-<img src = "Irving Glovin.png", width = 200px>
+<img src = "schindler.jpg", width = 78px>
 <img src = "Peter Jackson.jpg", width = 100px>
 <img src = "Ross Grayson Bell.jpg", width = 103px>
-
-
-###### Henry Fonda, Ross Grayson Bell
 
 ```{r, message=FALSE, warning=FALSE}
 library(mdsr)
@@ -49,6 +46,18 @@ LIMIT 10;
 db %>%
   dbGetQuery(top_10_Movies)
 ```
+
+<img src = "Michael Dauterive.jpg", width = 120px>
+<img src = "Jeb Brody.jpg", width = 104px>
+<img src = "Scott_Aversano.png", width = 104px>
+<img src = "Bannerman_Bill.jpg", width = 110px>
+<img src = "Brenner_Robbie.jpg", width = 114px>
+<img src = "Drew Barrymore.jpg", width = 104px>
+<img src = "Barone_Tracy.jpg", width = 104px>
+<img src = "James.jpg", width = 104px>
+<img src = "breaking2.jpg", width = 104px>
+<img src = "eclipse.jpg", width = 114px>
+
 
 ```{r}
 bottom_10_Movies <- 
