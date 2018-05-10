@@ -12,6 +12,7 @@ output: html_document
 <img src = "schindler.jpg", width = 78px>
 <img src = "Peter Jackson.jpg", width = 100px>
 <img src = "Ross Grayson Bell.jpg", width = 103px>
+<figcaption> Starting on the top left corner: Liz Glotzer, Roberts Evans, Kevin De La Noy, Francis Ford Coppola, Henry Fonda, Alberto Grimaldi, Lawrence Bender, Movie cover of Schindler's List, Peter Jackson, and Ross Grayson Bell </figcaption>
 
 
 <img src = "Michael Dauterive.jpg", width = 120px>
@@ -24,3 +25,5 @@ output: html_document
 <img src = "James.jpg", width = 104px>
 <img src = "breaking2.jpg", width = 104px>
 <img src = "eclipse.jpg", width = 114px>
+
+<figcaption> Starting on the top left corner: Michael Dauterive, Jeb Brody, Scott Aversano, Bill Bannerman, Drew Barrymore, Tracy Barone, James Lassiter, A movie cover of Twilight Saga: Breaking Dawn Part I, and A movie cover of Twilight Saga: Eclipse.

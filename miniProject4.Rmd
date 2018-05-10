@@ -1,10 +1,23 @@
 ---
-title: "miniProject4"
+title: "Do you know who’s making your movies? "
+author: "Lola Roberts and Felicia Villalobos"
 output:
   html_document:
     code_folding: hide
     df_print: paged
 ---
+
+<br> </br>
+
+##### Within the past few years, there have been efforts to acknowledge and address the lack of diversity in Hollywood, the most notable of which started after the announcement of Oscars nominations for the 2016 awards with the hashtag “#OscarsSoWhite”. 
+
+##### 	“#OscarsSoWhite refers to all marginalized communities and is not about quotas but about asking inclusive questions when staffing films—from the actors cast to the boom operators and craft-services teams hired. It is about operating outside of the same networks that have been used for years and instead providing opportunities to talented craftspeople from groups not usually included.” (Reign, April. Vanity Fair 2018) 
+
+##### Even though the 2018 Oscars saw more wins for movies made by and about people of color (Get Out, Coco, The Shape of Water),  there is still a lack of overall diversity amongst Hollywood actors, and whitewashing continues to be a prevalent issue in films portraying people of color. In this project, we are focusing on the production teams behind the highest and lowest rated movies in IMDB to visualize who is producing movies that have received high ratings and low reviews. We would like to see if movies with a higher rating tend to have more or less diversity in their production teams, or if there is any kind of pattern between the rating of a movie (in this database) and the diversity of the team. 
+
+##### Below are the producers for the top 10 rated movies in the IMDB database. The films in this set are iconic and well-known such as Shawshank Redemption, Lord the Rings: Return of the King, and Schindler’s List, just to name a few. Do you notice anything about their producers? Based on observations and research, we found that most of the producers of these famous films tend to be white and male with few exceptions. It can also be noted that the films in this category all have reoccuring themes of violence, with primarily male leads, especially The Godfather, Pulp Fiction and The Dark Knight.
+<br> </br>
+
 <img src = "Liz Glotzer.jpg", width = 99px>
 <img src = "Robert Evans.jpg", width = 118px>
 <img src = "Kevin De La Noy.jpg", width = 100px>
@@ -15,6 +28,7 @@ output:
 <img src = "schindler.jpg", width = 78px>
 <img src = "Peter Jackson.jpg", width = 100px>
 <img src = "Ross Grayson Bell.jpg", width = 103px>
+<figcaption> Starting on the top left corner: Liz Glotzer, Roberts Evans, Kevin De La Noy, Francis Ford Coppola, Henry Fonda, Alberto Grimaldi, Lawrence Bender, Movie cover of Schindler's List, Peter Jackson, and Ross Grayson Bell </figcaption>
 
 ```{r, message=FALSE, warning=FALSE}
 library(mdsr)
@@ -25,6 +39,8 @@ library(tidyverse)
 library(ggthemes)
 library(RColorBrewer)
 ```
+
+ 
 
 ```{r, message=FALSE, warning=FALSE}
 top_10_Movies <- "
@@ -46,6 +62,10 @@ LIMIT 10;
 db %>%
   dbGetQuery(top_10_Movies)
 ```
+<br> </br>
+
+##### Next, we have displayed the producers for the 10 movies in the IMDB database with the lowest ratings. These are movies that you may have heard of, but not for their great cinematography or achievements in storytelling such as The Last Airbender, which received negative reviews for its lackluster visuals and deviation from the children’s show the film was based on. We know from research that the producers of these movies (although not all pictured)  are a more diverse group than the one pictured above. Our visualization seeks to take a closer look at the production teams of the movies in these groupings and portray the varying and sometimes nonexistent diversity in the teams. 
+<br> </br>
 
 <img src = "Michael Dauterive.jpg", width = 120px>
 <img src = "Jeb Brody.jpg", width = 104px>
@@ -58,8 +78,10 @@ db %>%
 <img src = "breaking2.jpg", width = 104px>
 <img src = "eclipse.jpg", width = 114px>
 
+<figcaption> Starting on the top left corner: Michael Dauterive, Jeb Brody, Scott Aversano, Bill Bannerman, Drew Barrymore, Tracy Barone, James Lassiter, A movie cover of Twilight Saga: Breaking Dawn Part I, and A movie cover of Twilight Saga: Eclipse. </figcaption>
 
-```{r}
+
+```{r, message=FALSE, warning=FALSE}
 bottom_10_Movies <- 
 "
 SELECT t.title, cast.note, name_cast.name, name_cast.gender
@@ -82,232 +104,6 @@ db %>%
 ```
 
 ```{r, message=FALSE, warning=FALSE}
-# movie <-function(title){
-#   paste(
-# "
-# SELECT t.title, cast.note, name_cast.name, name_cast.gender
-# FROM title t
-# JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
-# JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
-# JOIN cast_info as cast on cast.movie_id = t.id
-# join name as name_cast on name_cast.id = cast.person_id
-# WHERE t.title =","'",title,"'",
-#   "AND mi1.info_type_id = 100
-#   AND mi2.info_type_id = 101
-#   AND mi1.info > 100000
-#   and cast.role_id  in (3, 4, 8);", sep = ""
-# )
-# }
-# 
-# Shawshank_Redemption <- movie("The Shawshank Redemption")
-# 
-# Godfather <- movie("The Godfather")
-# 
-# Dark_Knight <- movie("The Dark Knight")
-# 
-# Godfather_PartII <- movie("The Godfather: Part II")
-# 
-# Angry_Men <- movie("12 Angry Men")
-# 
-# Il_buono <- movie("Il buono,\n il brutto,\n il cattivo")
-# 
-# Pulp_fiction <- movie("Pulp Fiction")
-# 
-# Schindler_list <- "
-# SELECT *
-# FROM title t
-# JOIN movie_info_idx AS mi1 ON mi1.movie_id = t.id
-# JOIN movie_info_idx AS mi2 ON mi2.movie_id = t.id
-# JOIN cast_info as cast on cast.movie_id = t.id
-# join name as name_cast on name_cast.id = cast.person_id
-# WHERE t.title LIKE '%Schindler%'
-#   AND mi1.info_type_id = 100
-#   AND mi2.info_type_id = 101
-#   AND mi1.info > 100000
-#   and cast.role_id  in (3, 4, 8);
-# "
-# 
-# Lord_of_the_Rings <- movie("The Lord of the Rings:\nThe Return of the King")
-# 
-# Fight_club <- movie("Fight Club")
-# 
-# 
-# db %>%
-#   dbGetQuery(Shawshank_Redemption)
-# 
-# db %>%
-#   dbGetQuery(Godfather)
-# 
-# db %>%
-#   dbGetQuery(Dark_Knight)
-# 
-# db %>%
-#   dbGetQuery(Godfather_PartII)
-# 
-# db %>%
-#   dbGetQuery(Angry_Men)
-# 
-# db %>%
-#   dbGetQuery(Il_buono)
-# 
-# db %>%
-#   dbGetQuery(Pulp_fiction)
-# 
-# db %>%
-#   dbGetQuery(Schindler_list)
-# 
-# db %>%
-#   dbGetQuery(Lord_of_the_Rings)
-# 
-# db %>%
-#   dbGetQuery(Fight_club)
-
-```
-```{r}
-# # creating a data frame about top 10 movies
-# 
-# producer = c("Liz Glotzer", "Robert Evans", "Kevin De La Noy", "Francis Ford Coppola", "Henry Fonda", "Alberto Grimaldi", "Lawrence Bender", "Irving Glovin", "Peter Jackson", "Ross Grayson Bell")
-# 
-# sex_production = c("female", "male", "male", "male", "male", "male", "male", "male", "male", "male")
-# 
-# race = c("white", "white", "white", "white", "white", "white", "white", "white", "white", "white")
-# 
-# 
-# # creating a data frame for The Shawshank Redemption
-# 
-# shaw_role = c("executive producer", "executive producer", "producer", "screenplay","story by", "director")
-# 
-# shaw_people = c("Liz Glotzer", "David Lester", "Niki Marvin", "Frank Darbont", "Stephen King", "Frank Darabont")
-# 
-# shaw_race = c("white", "white", "white", "white", "white", "white")
-# 
-# shaw_gender = c("female", "male", "female", "male", "male", "male")
-# 
-# 
-# # creating a data frame for The Godfather
-# 
-# godFather_role = c("executive producer", "associate producer", "producer", "screenplay", "story by", "screenplay", "director")
-# 
-# godFather_people = c("Robert Evans", "Gray Frederickson", "Albert Ruddy", "Francis Ford Coppola", "Mario Puzo", "Mario Puzo", "Francis Ford Coppola")
-# 
-# godFather_race = c("white", "white", "white", "white", "white", "white", "white" )
-# 
-# godFather_gender = c("male", "male", "male", "male", "male", "male", "male" )
-# 
-# 
-# # creating a data frame for The Dark Knight
-# Dark_Knight_role = c("executive producer", "associate producer", "line producer: Hong Kong", "executive producer", "producer", "producer IMAX version", "producer", "producer", "executive producer", "executive producer", "story", "characters", "screenplay", "story", "screenplay", "director")
-# 
-# Dark_Knight_people = c("Kevin De La Noy", "Jordan Goldberg", "Philip Lee", "Benjamin Melniker", "Christopher Nolan", "Lorne Orleans", "Charles Roven", "Emma Thomas", "Thomas Tull", "Michael Uslan", "David Goyer", "Bob Kane", "Christopher Nolan", "Christopher Nolan", "Jonathan Nolan", "Christopher Nolan")
-# 
-# Dark_Knight_race = c("white", "white", "asian", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white")
-# 
-# Dark_Knight_gender = c("male", "male", "male", "male", "male", "male", "male", "female", "male", "male", "male", "male", "male", "male", "male", "male" )
-# 
-# # creating a data frame for The Godfather: Part II
-# 
-# god2_role = c("producer", "executive producer", "co-producer", "co-producer", "associate producer", "screenplay", "story by", "screenplay", "director")
-# 
-# god2_people = c("Francis Ford Coppola", "Robert Evans", "Gray Frederickson", "Fred Roos", "Mona Skager", "Francis Ford Coppola", "Mario Puzo", "Mario Puzo", "Francis Ford Coppola")
-# 
-# god2_race = c("white", "white", "white", "white", "white", "white", "white", "white","white")
-# 
-# god2_gender = c("male", "male", "male", "male", "female", "male", "male", "male", "male")
-# 
-# 
-# # creating a data frame for the 12 Angry Men
-# 
-# Angry_role = c("producer", "associate producer", "producer", "screenplay", "story", "director")
-# 
-# Angry_people = c("Henry Fonda", "George Justin", "Reginald Rose", "Reginald Rose", "Reginald Rose", "Sidney Lumen")
-# 
-# Angry_race = c("white", "white", "white", "white", "white", "white")
-# 
-# Angry_gender = c("male", "male", "male", "male", "male", "male")
-# 
-# 
-# # creating a data frame for Il buono,\n il brutto,\n il cattivo
-# 
-# il_role = c("producer", "screenplay as Age", "English version", "screensplay", "story", "screenplay as Scarpelli", "screenplay", "story", "director")
-# 
-# il_people = c("Alberto Grimaldi", "Agenore Incrocci", "Mickey Knox", "Sergio Leone", "Sergio Leone", "Furio Scarpelli", "Luciano Vincenzoni", "Luciano Vincenzoni", "Sergio Leone")
-# 
-# il_race = c("white", "white", "white", "white", "white", "white", "white", "white", "white")
-# 
-# il_gender = c("male", "male", "male", "male", "male", "male", "male", "male", "male")
-# 
-# 
-# #creating a data frame for Pulp Fiction
-# 
-# pulp_role = c("producer", "executive producer", "co-executive producer", "executive producer", "executive producer", "co-executive producer", "co-executive producer", "story by", "story by", "written by", "director")
-# 
-# pulp_people = c("Lawrence Bender", "Danny DeVito", "Richard Gladstein", "Michael Shamberg", "Stacey Sher", "Bob Weinstein", "Harvey Weinstein", "Roger Avary", "Quentin Tarantino", "Quentin Tarantino", "Quentin Tarantino")
-# 
-# pulp_race = c("white", "white", "white", "white", "white", "white", "white", "white","white", "white", "white")
-# 
-# pulp_gender = c("male", "male", "male", "male", "female", "male", "male", "male", "male", "male", "male")
-# 
-# 
-# # creating a data frame for Schindler's List
-# 
-# schindler_role = c("associate producer", "executive producer", "producer", "producer", "associate producer", "co-producer", "producer", "book", "screenplay", "director")
-# 
-# schindler_people = c("Irving Glovin", "Kathleen Kennedy", "Branko Lustig", "Gerald Molen", "Robert Raymond", "Lew Rywin", "Steven Spielberg", "Thomas Keneally", "Steven Zaillian", "Steven Spielberg")
-# 
-# schindler_race = c("white", "white", "white", "white", "white", "white", "white", "white", "white", "white")
-# 
-# schindler_gender = c("male", "female", "male", "male", "male", "male", "male", "male", "male", "male")
-# 
-# 
-# # creating a data frame for The Lord of the Rings:\nThe Return of the King
-# 
-# lord_role = c("producer", "executive producer", "executive producer", "producer", "co-producer", "co_producer", "executive producer", "producer", "executive producer", "executive producer", "screenplay", "screenplay", "story by", "screenplay", "director")
-# 
-# lord_people = c("Peter Jackson", "Michael Lynne", "Mark Ordesky", "Barrie Osborne", "Rick Porras", "Jamie Selkirk", "Robert Shaye", "Fran Walsh", "Bob Weinstein", "Harvey Weinstein", "Philippa Boyens", "Peter Jackson", "J.R.R. Tolkien", "Fran Walsh", "Peter Jackson")
-# 
-# lord_race = c("white", "white", "white", "white", "latino", "white", "white", "white", "white", "white", "white", "white", "white", "white", "white")
-# 
-# lord_gender = c("male", "male", "male", "male", "male", "male", "male", "female", "male", "male", "female", "male", "male", "female", "male")
-# 
-# 
-# # creating a data frame for Fight Club
-# 
-# fight_role = c("producer", "producer", "associate producer", "producer", "executive producer", "story by", "screenplay", "director")
-# 
-# fight_people = c("Ross Grayson Bell", "Cean Chaffin", "John Dorsey", "Art Linson", "Arnon Milchan", "Chuck Palahniuk", "Jim Uhls", "David Fincher")
-# 
-# fight_race = c("white", "white", "white", "white", "white", "white", "white", "white")
-# 
-# fight_gender = c("male", "female", "male", "male", "male", "male", "male", "male")
-# ```
-# 
-# ```{r}
-# # all of the data frames that was created from the top 10 highest rated movies
-# top_10_Movie_DataFrame = data_frame(producer, sex_production, race)
-# 
-# Shawshank_Redemption_Cast = data_frame(shaw_role, shaw_people, shaw_race, shaw_gender)
-# 
-# godFather_Cast = data_frame(godFather_role, godFather_people, godFather_race, godFather_gender)
-# 
-# Dark_Knight_Cast = data_frame(Dark_Knight_role, Dark_Knight_people, Dark_Knight_race, Dark_Knight_gender)
-# 
-# Godfather_PartII_Cast = data_frame(god2_role, god2_people, god2_race, god2_gender)
-# 
-# Angry_Men_Cast = data_frame(Angry_role, Angry_people, Angry_race, Angry_gender)
-# 
-# Il_buono_Cast = data_frame(il_role, il_people, il_race, il_gender)
-# 
-# Pulp_fiction_Cast = data_frame(pulp_role, pulp_people, pulp_race, pulp_gender)
-# 
-# Schindler_list_Cast = data_frame(schindler_role, schindler_people, schindler_race, schindler_gender)
-# 
-# Lord_of_the_Rings_Cast = data_frame(lord_role, lord_people, lord_race, lord_gender)
-# 
-# Fight_club_Cast = data_frame(fight_role, fight_people, fight_race, fight_gender)
-
-```
-
-```{r, message=FALSE, warning=FALSE}
 all_movies = c("Shawshank Redemption", "Shawshank Redemption","Shawshank Redemption","Shawshank Redemption","Shawshank Redemption","Shawshank Redemption","The Godfather","The Godfather","The Godfather","The Godfather","The Godfather","The Godfather","The Godfather", "The Dark Knight", "The Dark Knight","The Dark Knight","The Dark Knight","The Dark Knight","The Dark Knight","The Dark Knight","The Dark Knight","The Dark Knight","The Dark Knight","The Dark Knight","The Dark Knight","The Dark Knight","The Dark Knight","The Dark Knight","The Dark Knight", "The Godfather: Part II","The Godfather: Part II","The Godfather: Part II","The Godfather: Part II","The Godfather: Part II","The Godfather: Part II","The Godfather: Part II","The Godfather: Part II","The Godfather: Part II", "12 Angry Men", "12 Angry Men", "12 Angry Men", "12 Angry Men", "12 Angry Men", "12 Angry Men", "Il buono,\n il brutto,\n il cattivo","Il buono,\n il brutto,\n il cattivo","Il buono,\n il brutto,\n il cattivo","Il buono,\n il brutto,\n il cattivo","Il buono,\n il brutto,\n il cattivo","Il buono,\n il brutto,\n il cattivo","Il buono,\n il brutto,\n il cattivo","Il buono,\n il brutto,\n il cattivo","Il buono,\n il brutto,\n il cattivo", "Pulp Fiction","Pulp Fiction","Pulp Fiction","Pulp Fiction","Pulp Fiction","Pulp Fiction","Pulp Fiction","Pulp Fiction","Pulp Fiction","Pulp Fiction","Pulp Fiction", "Schindler's List","Schindler's List","Schindler's List","Schindler's List","Schindler's List","Schindler's List","Schindler's List","Schindler's List","Schindler's List","Schindler's List", "The Lord of the Rings:\nThe Return of the King","The Lord of the Rings:\nThe Return of the King","The Lord of the Rings:\nThe Return of the King","The Lord of the Rings:\nThe Return of the King","The Lord of the Rings:\nThe Return of the King","The Lord of the Rings:\nThe Return of the King","The Lord of the Rings:\nThe Return of the King","The Lord of the Rings:\nThe Return of the King","The Lord of the Rings:\nThe Return of the King","The Lord of the Rings:\nThe Return of the King","The Lord of the Rings:\nThe Return of the King","The Lord of the Rings:\nThe Return of the King","The Lord of the Rings:\nThe Return of the King","The Lord of the Rings:\nThe Return of the King","The Lord of the Rings:\nThe Return of the King", "Fight Club","Fight Club","Fight Club","Fight Club","Fight Club","Fight Club","Fight Club","Fight Club")
 
 all_roles = c("executive producer", "executive producer", "producer", "screenplay","story by", "director", "executive producer", "associate producer", "producer", "screenplay", "story by", "screenplay", "director", "executive producer", "associate producer", "line producer: Hong Kong", "executive producer", "producer", "producer", "producer", "producer", "executive producer", "executive producer", "story by", "characters", "screenplay", "story by", "screenplay", "director", "producer", "executive producer", "co-producer", "co-producer", "associate producer", "screenplay", "story by", "screenplay", "director", "producer", "associate producer", "producer", "screenplay", "story by", "director", "producer", "screenplay", "English version", "screenplay", "story by", "screenplay", "screenplay", "story by", "director", "producer", "executive producer", "co-executive producer", "executive producer", "executive producer", "co-executive producer", "co-executive producer", "story by", "story by", "written by", "director", "associate producer", "executive producer", "producer", "producer", "associate producer", "co-producer", "producer", "story by", "screenplay", "director", "producer", "executive producer", "executive producer", "producer", "co-producer", "co-producer", "executive producer", "producer", "executive producer", "executive producer", "screenplay", "screenplay", "story by", "screenplay", "director", "producer", "producer", "associate producer", "producer", "executive producer", "story by", "screenplay", "director")
@@ -318,12 +114,14 @@ race = c("white", "white", "white", "white", "white", "white", "white", "white",
 
 gender = c("female", "male", "female", "male", "male", "male", "male", "male", "male", "male", "male", "male", "male", "male", "male", "male", "male", "male", "male", "male", "female", "male", "male", "male", "male", "male", "male", "male", "male", "male", "male", "male", "male", "female", "male", "male", "male", "male", "male", "male", "male", "male", "male", "male", "male", "male", "male", "male", "male", "male", "male", "male", "male", "male", "male", "male", "male", "female", "male", "male", "male", "male", "male", "male", "male", "female", "male", "male", "male", "male", "male", "male", "male", "male", "male", "male", "male", "male", "male", "male", "male", "female", "male", "male", "female", "male", "male", "female", "male", "male", "female", "male", "male", "male", "male", "male", "male")
 
+# making the big dataframe with all the movies from the top 10
 all_things = data_frame(all_movies, all_roles, all_people, race, gender)
 ```
 
-```{r, message=FALSE, warning=FALSE, fig.width= 30, fig.height= 25}
+```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width= 30, fig.height= 25}
+# graph showing the race and gender of each top 10 movie separately
 sorted_by_film <- ggplot(all_things, aes(x = gender, y = race, fill = race)) +
-  geom_bin2d() + facet_wrap(~all_movies) + theme_dark() +
+  geom_bin2d() + facet_wrap(~all_movies) + theme_gray() +
   scale_fill_manual(values=c(white="#fbf7f5", asian="blue", latino = "orange")) + xlab("Gender") + 
     ylab("Race") +
   theme(axis.text.x = element_text(angle = 70, hjust = 1)) +
@@ -339,14 +137,17 @@ sorted_by_film <- ggplot(all_things, aes(x = gender, y = race, fill = race)) +
                              title = "Race")) +
   theme(legend.background = element_rect(fill = "lightblue", 
                                          size = 0.5, linetype = "solid", 
-                                         color = "darkblue"))
+                                         color = "darkblue")) + 
+  ggtitle("Figure 1: Top 10 Rated Movies") +
+  theme(plot.title = element_text(size = 40, face = "bold"))
 
 sorted_by_film
 
-sorted_by_role <- ggplot(all_things, aes(x = race, fill = race)) +
+# making the graph showing the diversity of the crew in the top 10 movies
+sorted_by_role <- ggplot(all_things, aes(x = race, fill = race, label = "height")) +
   geom_bar() +
   facet_wrap(~all_roles) + 
-  theme_dark() + 
+  theme_gray() + 
   scale_fill_manual(values=c(white="#fbf7f5", asian="blue", latino = "orange")) + 
   xlab("Race") +
   theme(axis.text.x = element_text(angle = 70, hjust = 1)) +
@@ -362,73 +163,18 @@ sorted_by_role <- ggplot(all_things, aes(x = race, fill = race)) +
                              title = "Race")) +
   theme(legend.background = element_rect(fill = "lightblue", 
                                          size = 0.5, linetype = "solid", 
-                                         color = "darkblue"))
+                                         color = "darkblue")) + 
+  ggtitle("Figure 2: Top 10 Rated Movies: Diversity in Production Teams") + 
+  theme(plot.title = element_text(size = 40, face = "bold"))+
+  geom_text(stat = 'count', aes(label = ..count..), size = 10, vjust = -.1)
 
 sorted_by_role
-
 ```
 
+<br> </br>
 
+##### Figure 1 looks at the the top 10 rated movies in the database and graphs the race and gender of their production teams. We can see that with only two exceptions, the majority of the teams tend to be white. In Figure 2, we take a closer look into who is filling the production roles for the top ten movies. We see that the majority of Executive Producers, who are responsible for the other members of the production team are entirely white. In this figure,we see some diversity in the role of Co-Producer, and the role of Line Producer. In this instance, however, it can be noted that the role of Line Producer is specific to the Hong Kong location (the dataframe shows that this role was for the movie The Last Airbender) 
 
-```{r}
-# # making the graphs
-# 
-# production_graph <- function(data, xelement, yelement, filling, title) {
-#   ggplot(data, aes(x = xelement, y = yelement, fill = filling)) + 
-#     geom_bin2d() + 
-#     ggtitle(title) +
-#     xlab("Gender of Crew Members") + 
-#     ylab("Positions on Crew") + 
-#     scale_fill_manual(values=c(white="#F0F0F0", asian="blue", latino = "orange")) 
-# }
-# 
-# # gender <- production_graph(top_10_Movie_DataFrame, sex_production, producer, sex_production)
-# # 
-# # gender
-# 
-# producers <- production_graph(top_10_Movie_DataFrame, sex_production, producer, fill = race, "Top 10 Movie Producers")
-# producers 
-# 
-# graph_Shawshank_Redemption_Cast <- production_graph(Shawshank_Redemption_Cast, shaw_gender, shaw_role, shaw_race, "Crew of Shawshank Redemption")
-# 
-# graph_Shawshank_Redemption_Cast
-# 
-# graph_godFather_Cast <- production_graph(godFather_Cast, godFather_gender, godFather_role, godFather_race, "Crew of The Godfather")
-# 
-# graph_godFather_Cast
-# 
-# graph_Dark_Knight_Cast <- production_graph(Dark_Knight_Cast, Dark_Knight_gender, Dark_Knight_role, Dark_Knight_race, "Crew of The Dark Knight")
-# 
-# graph_Dark_Knight_Cast
-# 
-# graph_Godfather_PartII_Cast <- production_graph(Godfather_PartII_Cast, god2_gender, god2_role, god2_race, "Crew of Godfather: Part II")
-# 
-# graph_Godfather_PartII_Cast
-# 
-# graph_Angry_Men_Cast <- production_graph(Angry_Men_Cast, Angry_gender, Angry_role, Angry_race, "Crew of 12 Angry Men")
-# 
-# graph_Angry_Men_Cast
-# 
-# graph_Il_buono_Cast <- production_graph(Il_buono_Cast, il_gender, il_role, il_race, "Crew of Il buono,\n il brutto,\n il cattivo")
-# 
-# graph_Il_buono_Cast
-# 
-# graph_Pulp_fiction_Cast <- production_graph(Pulp_fiction_Cast, pulp_gender, pulp_role, pulp_race, "Crew of Pulp Fiction")
-# 
-# graph_Pulp_fiction_Cast
-# 
-# graph_Schindler_list_Cast <- production_graph(Schindler_list_Cast, schindler_gender, schindler_role, schindler_race, "Crew of Schindler's List")
-# 
-# graph_Schindler_list_Cast
-# 
-# graph_Lord_of_the_Rings_Cast <- production_graph(Lord_of_the_Rings_Cast, lord_gender, lord_role, lord_race, "Crew of The Lord of the Rings:\nThe Return of the King")
-# 
-# graph_Lord_of_the_Rings_Cast
-# 
-# graph_Fight_club_Cast <- production_graph(Fight_club_Cast, fight_gender, fight_role, fight_race, "Crew of Fight Club")
-# 
-# graph_Fight_club_Cast
-```
 
 ```{r, warning=FALSE, message=FALSE}
 all_titles = c("Batman and Robin", "Batman and Robin", "Batman and Robin", "Batman and Robin", "Batman and Robin", "Batman and Robin", "Batman and Robin", "Batman and Robin", "Fifty Shades\nof Grey", "Fifty Shades\nof Grey", "Fifty Shades\nof Grey", "Fifty Shades\nof Grey", "Fifty Shades\nof Grey", "Fifty Shades\nof Grey", "Fifty Shades\nof Grey", "Fifty Shades\nof Grey","The Last Airbender", "The Last Airbender", "The Last Airbender", "The Last Airbender", "The Last Airbender", "The Last Airbender", "The Last Airbender" , "The Last Airbender", "The Last Airbender", "The Last Airbender", "The Last Airbender", "The Last Airbender", "The Last Airbender", "The Last Airbender" , "The Last Airbender","The Twilight Saga:\n New Moon", "The Twilight Saga:\n New Moon", "The Twilight Saga:\n New Moon", "The Twilight Saga:\n New Moon", "The Twilight Saga:\n New Moon", "The Twilight Saga:\n New Moon", "The Twilight Saga:\n New Moon", "The Twilight Saga:\n New Moon", "The Twilight Saga:\n New Moon", "The Twilight Saga:\n New Moon", "The Twilight Saga:\n New Moon", "The Twilight Saga:\n New Moon", "The Twilight Saga:\n New Moon","AVPR\n Aliens vs Predator\nRequiem",  "AVPR\n Aliens vs Predator\nRequiem", "AVPR\n Aliens vs Predator\nRequiem", "AVPR\n Aliens vs Predator\nRequiem", "AVPR\n Aliens vs Predator\nRequiem",  "AVPR\n Aliens vs Predator\nRequiem", "AVPR\n Aliens vs Predator\nRequiem", "AVPR\n Aliens vs Predator\nRequiem", "AVPR\n Aliens vs Predator\nRequiem", "AVPR\n Aliens vs Predator\nRequiem", "AVPR\n Aliens vs Predator\nRequiem", "AVPR\n Aliens vs Predator\nRequiem","Charlie's Angels:\n Full Throttle", "Charlie's Angels:\n Full Throttle", "Charlie's Angels:\n Full Throttle", "Charlie's Angels:\n Full Throttle","Charlie's Angels:\n Full Throttle", "Charlie's Angels:\n Full Throttle", "Charlie's Angels:\n Full Throttle", "Charlie's Angels:\n Full Throttle", "Charlie's Angels:\n Full Throttle", "Charlie's Angels:\n Full Throttle", "Charlie's Angels:\n Full Throttle", "Charlie's Angels:\n Full Throttle", "Charlie's Angels:\n Full Throttle", "Charlie's Angels:\n Full Throttle",  "Wild Wild West", "Wild Wild West", "Wild Wild West", "Wild Wild West",  "Wild Wild West", "Wild Wild West", "Wild Wild West", "Wild Wild West", "Wild Wild West", "Wild Wild West", "Wild Wild West", "Wild Wild West", "Wild Wild West", "Wild Wild West", "Wild Wild West", "Wild Wild West", "Wild Wild West", "Wild Wild West", "Wild Wild West", "After Earth", "After Earth", "After Earth", "After Earth", "After Earth", "After Earth", "After Earth", "After Earth", "After Earth", "After Earth", "After Earth", "After Earth", "After Earth", "The Twilight Saga:\nBreaking Dawn\nPart 1", "The Twilight Saga:\nBreaking Dawn\nPart 1","The Twilight Saga:\nBreaking Dawn\nPart 1","The Twilight Saga:\nBreaking Dawn\nPart 1","The Twilight Saga:\nBreaking Dawn\nPart 1","The Twilight Saga:\nBreaking Dawn\nPart 1","The Twilight Saga:\nBreaking Dawn\nPart 1","The Twilight Saga:\nBreaking Dawn\nPart 1","The Twilight Saga:\nBreaking Dawn\nPart 1","The Twilight Saga:\nBreaking Dawn\nPart 1","The Twilight Saga:\nBreaking Dawn\nPart 1","The Twilight Saga:\nBreaking Dawn\nPart 1","The Twilight Saga:\nBreaking Dawn\nPart 1","The Twilight Saga:\nBreaking Dawn\nPart 1","The Twilight Saga:\nBreaking Dawn\nPart 1", "The Twilight Saga:\nEclipse","The Twilight Saga:\nEclipse","The Twilight Saga:\nEclipse","The Twilight Saga:\nEclipse","The Twilight Saga:\nEclipse","The Twilight Saga:\nEclipse","The Twilight Saga:\nEclipse","The Twilight Saga:\nEclipse","The Twilight Saga:\nEclipse","The Twilight Saga:\nEclipse","The Twilight Saga:\nEclipse")
@@ -445,29 +191,36 @@ all_gender = c("male", "male", "male", "male", "male", "male", "male", "male", "
 final_bottom10_df = data_frame(all_titles, all_roles_bottom_10, all_names, all_race, all_gender)
 ```
 
-```{r, message=FALSE, warning=FALSE, fig.width= 30, fig.height= 25}
-sorted_by_film_bottom_10 <- ggplot(final_bottom10_df, aes(x = all_gender, y = all_race, fill = all_race)) + 
-  geom_bin2d() + facet_wrap(~all_titles) + theme_dark() +
+```{r, message=FALSE, warning=FALSE, echo=FALSE, fig.width= 30, fig.height= 25}
+# making graph for bottom 10 movies showing race and gender distribution in each movie
+sorted_by_film_bottom_10 <- ggplot(final_bottom10_df, aes(x = all_gender, y = all_race, fill = all_race)) +
+  geom_bin2d() + facet_wrap(~all_titles) + theme_gray() +
   scale_fill_manual(values=c(white="#fbf7f5", asian="blue", latino = "orange", black = "saddlebrown", middle_eastern = "green")) +
   theme(axis.title.x = element_text(size = 50)) +
   theme(axis.title.y = element_text(size = 50)) +
-  theme(axis.text.x = element_text(size = rel(5))) + 
+  theme(axis.text.x = element_text(size = rel(5))) +
   theme(axis.text.y = element_text(size = rel(5))) +
   theme(strip.text.x = element_text(size = 40)) +
-  theme(legend.title = element_text(color = "black", size = 50, face = "bold")) + 
-  theme(legend.text = element_text(color = "black", size = 40)) + 
-  guides(fill = guide_legend(keywidth = 3, 
-                             keyheight = 3, 
-                             title = "Race")) + 
-  theme(legend.background = element_rect(fill = "lightblue", 
-                                         size = 0.5, linetype = "solid", 
-                                         color = "darkblue"))
+  theme(legend.title = element_text(color = "black", size = 50, face = "bold")) +
+  theme(legend.text = element_text(color = "black", size = 40)) +
+  guides(fill = guide_legend(keywidth = 3,
+                             keyheight = 3,
+                             title = "Race")) +
+  theme(legend.background = element_rect(fill = "lightblue",
+                                         size = 0.5, linetype = "solid",
+                                         color = "darkblue")) +
+  ggtitle("Figure 3: 10 Lowest Rated Movies - Production Teams") +
+  theme(plot.title = element_text(size = 40, face = "bold")) +
+  xlab("Gender") +
+  ylab("Race")
 
 sorted_by_film_bottom_10
 
+# making a graph showing the diversity of the crew of the bottom 10 movies
 sorted_by_role_bottom_10 <- ggplot(final_bottom10_df, aes(x = all_race, fill = all_race)) + 
-  geom_bar() + facet_wrap(~ all_roles_bottom_10) + theme_dark() + scale_fill_manual(values=c(white="#fbf7f5", asian="blue", latino = "orange", black = "saddlebrown", middle_eastern = "green")) + 
+  geom_bar() + facet_wrap(~ all_roles_bottom_10) + theme_gray() + scale_fill_manual(values=c(white="#fbf7f5", asian="blue", latino = "orange", black = "saddlebrown", middle_eastern = "green")) + 
   theme(axis.text.x = element_text(angle = 70, hjust = 1)) +
+  xlab("Race") +
   theme(axis.title.x = element_text(size = 50)) +
   theme(axis.title.y = element_text(size = 40)) +
   theme(axis.text.x = element_text(size = rel(5))) + 
@@ -480,11 +233,22 @@ sorted_by_role_bottom_10 <- ggplot(final_bottom10_df, aes(x = all_race, fill = a
                              title = "Race")) +
   theme(legend.background = element_rect(fill = "lightblue", 
                                          size = 0.5, linetype = "solid", 
-                                         color = "darkblue"))
+                                         color = "darkblue")) + 
+  ggtitle("Figure 4: Diversity in Production Teams by Role") + 
+  theme(plot.title = element_text(size = 40, face = "bold"))  +
+  geom_text(stat = 'count', aes(label = ..count..), size = 10, vjust = -.1)
 
 sorted_by_role_bottom_10
 ```
 
+
+
+##### We then take a look at the 10 Lowest Rated Movies and their production teams in Figure 3. When compared to the visualization of the Top 10 Rated Movies, we can see the obvious increase in diversity. Even though this set of movies and production teams is more representative of communities of color, with the exception of After Earth, we notice that there is little representation for women of color in the production teams of these movies. The last figure (Figure 4) once again shows an overall representation of production roles for both the top ten and bottom ten movies in the database with an added count of the races of people who have filled those roles. 
+
+##### These visualizations are meant to show the lack of diversity in Hollywood production teams. The data, however is not truly representative of all of Hollywood since we pulled an analyzed only the movies with high and low ratings from the database. Even though this visualization may suggest otherwise, the diversity in Hollywood movies in increasing not only amongst actors and performers, but amongst directors, and producers as well. There many producers, directors and creatives of color who are continuing to diversity the film production landscape and tell the narratives of people of color, even though they are not represented in this particular subset of the IMDB data. 
+
+
+^[https://github.com/lolabfr/miniProject4.git]
 
 
 
